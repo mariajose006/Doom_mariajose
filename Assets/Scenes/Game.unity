@@ -1201,14 +1201,14 @@ RectTransform:
   m_GameObject: {fileID: 543417304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.60951793, y: 0.739553, z: 0.739553}
+  m_LocalScale: {x: 0.33657992, y: 0.33657992, z: 0.33657992}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 313925060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52.9, y: -60}
+  m_AnchoredPosition: {x: 13.6, y: -22.9}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543417306
@@ -1233,9 +1233,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 48958c34eea8a7a4db775a39e57d3281, type: 3}
-    m_FontSize: 50
+    m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 100
     m_Alignment: 0
@@ -1244,9 +1244,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0/0
-
-'
+  m_Text: 0/0
 --- !u!222 &543417307
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2991,14 +2989,14 @@ RectTransform:
   m_GameObject: {fileID: 1540909833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.11771079, y: 0.18007307, z: 0.18007307}
+  m_LocalScale: {x: 0.12207786, y: 0.18007307, z: 0.18007307}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 313925060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.6, y: 0.000010003}
+  m_AnchoredPosition: {x: -35.1, y: 0.000010003}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540909835
@@ -3310,6 +3308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   gunPosition: {fileID: 954757226}
+  inputManager: {fileID: 222760571}
+  ammoText: {fileID: 543417306}
   onGunGrabbed:
     m_PersistentCalls:
       m_Calls:

@@ -11,7 +11,7 @@ public class GunData : ScriptableObject
 
     public float reloadTime;
 
-    public int cartidgeSize;
+    public int cartridgeSize;
 
     public GunType gunType;
 }

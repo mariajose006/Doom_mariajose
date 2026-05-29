@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.Events;
 public class Gun : MonoBehaviour
 {
     [SerializeField]
@@ -18,18 +19,48 @@ public class Gun : MonoBehaviour
 
         private GameObject bulletPrefab;
 
+        private Text ammoText;
+
         private float nextFireTime;
 
         private int totalBullets;
 
-        public void GrabGun(Transform gunPosition)
+        private int cartridgeBullets;
+
+        private UnityEvent onGunEmpty = new UnityEvent();
+
+        public UnityEvent OnGunEmpty
     {
+        set => onGunEmpty = value;
+        get => onGunEmpty;
+    }
+
+        public void GrabGun(Transform gunPosition, Text bulletsText)
+    {
+        ammoText = bulletsText;
+        nextFireTime = 0f;
+        totalBullets = gunData.totalBullets;
         transform.SetParent(gunPosition);
         transform.localPosition= Vector3.zero;
         transform.localRotation = Quaternion.identity;
         animator.Play("Grab", 0, 0f);
         rotateScript.canRotate = false;
         gameObject.GetComponent<Collider>().enabled = false;
+        ChargeGun(false);
+    }
+
+    public void ChargeGun(bool playAnimation = true)
+    {
+        if (totalBullets <= 0 || cartridgeBullets == gunData.cartridgeSize) return; 
+        cartridgeBullets = Mathf.Min(gunData.cartridgeSize, totalBullets);
+        totalBullets -= cartridgeBullets;
+        if (playAnimation) animator.Play("Charge", 0, 0f);
+        UpdateAmmoText();
+    }
+
+    private void UpdateAmmoText()
+    {
+        ammoText.text = $"{cartridgeBullets}/{totalBullets}";
     }
 
     public void Shoot()
@@ -73,10 +104,16 @@ public class Gun : MonoBehaviour
 
     private void TryShoot()
     {
-        if (totalBullets > 0 && Time.time >= nextFireTime)
+        if (totalBullets <= 0 && cartridgeBullets <= 0)
+        {
+            onGunEmpty?.Invoke();
+            return;
+        }
+        if (cartridgeBullets > 0 && Time.time >= nextFireTime)
         {
             Shoot();
-            totalBullets--;
+            cartridgeBullets--;
+            UpdateAmmoText();
             nextFireTime = Time.time + 1f / gunData.fireRate;
         }
     }
