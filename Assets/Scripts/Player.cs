@@ -27,10 +27,7 @@ public class Player : MonoBehaviour
           currentGun = other.GetComponent<Gun>();
           currentGun.GrabGun(gunPosition, ammoText);
           onGunGrabbed?.Invoke();
-          currentGun.OnGunEmpty.AddListener(() =>
-          {
-             DropGun();
-          });
+          currentGun.OnGunEmpty.AddListener(DropGun);
    }
 }
 private void Update()

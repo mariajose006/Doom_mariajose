@@ -52,6 +52,7 @@ public class Gun : MonoBehaviour
     public void ChargeGun(bool playAnimation = true)
     {
         if (totalBullets <= 0 || cartridgeBullets == gunData.cartridgeSize) return; 
+        SoundManager.instance.Play(gunData.reloadSoundName);
         cartridgeBullets = Mathf.Min(gunData.cartridgeSize, totalBullets);
         totalBullets -= cartridgeBullets;
         if (playAnimation) animator.Play("Charge", 0, 0f);
@@ -80,6 +81,7 @@ public class Gun : MonoBehaviour
         bulletPivot.forward = direction;
         GameObject bullet = Instantiate(bulletPrefab, bulletPivot.position, bulletPivot.rotation);
         bullet.transform.LookAt(targetPoint);
+        SoundManager.instance.Play(gunData.shootSoundName);
         animator.Play("Shoot", 0, 0f);
          }
 
@@ -106,6 +108,7 @@ public class Gun : MonoBehaviour
     {
         if (totalBullets <= 0 && cartridgeBullets <= 0)
         {
+            SoundManager.instance.Play(gunData.dropSoundName);
             onGunEmpty?.Invoke();
             return;
         }
