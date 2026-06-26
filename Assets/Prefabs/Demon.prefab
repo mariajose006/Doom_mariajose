@@ -323,8 +323,8 @@ MonoBehaviour:
   animator: {fileID: 5400234463388717859}
   damage: 30
   speed: 3
-  yPosition: -118.289
-  pushForce: 5
+  yPosition: 2.299995
+  pushForce: 200
 --- !u!95 &5400234463388717859
 Animator:
   serializedVersion: 7

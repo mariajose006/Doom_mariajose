@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b32e08fc37ac4d4ab883b9aff6c0ca6, type: 3}
   m_Name: GunAutomatic
   m_EditorClassIdentifier: Assembly-CSharp::GunData
-  damage: 4
+  damage: 6
   fireRate: 20
   totalBullets: 50
   reloadTime: 2
