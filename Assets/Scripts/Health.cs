@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
 public class Health : MonoBehaviour
 {
     [SerializeField]
@@ -15,9 +16,15 @@ public class Health : MonoBehaviour
     [SerializeField]
     
     private UnityEvent onDamageTaken;
+    [SerializeField]
+
+    private UnityEvent <Transform> onHeal;
+
     private float currentHealth;
 
     public float CurrentHealth => currentHealth;
+
+    public float MaxHealth => maxHealth;
 
     public void InitializeHealth()
     {
@@ -33,6 +40,7 @@ public class Health : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         UpdateHealthBar();
+        onHeal?.Invoke(transform);
     }
 
     public void TakeDamage(float damage)
