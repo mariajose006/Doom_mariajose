@@ -4,26 +4,20 @@ using System.Collections.Generic;
 public class Pool: MonoBehaviour
 {
    private Stack<GameObject> poolStack = new Stack<GameObject>();
-
    private readonly HashSet<GameObject> activeObjects = new HashSet<GameObject>();
-
    public IReadOnlyCollection<GameObject> ActiveObjects => activeObjects;
    [SerializeField]
-
    private GameObject prefab;
-
+   public GameObject Prefab { set => prefab = value; }
    private GameObject currentObject;
-
    public GameObject CurrentObject => currentObject;
-
    public void InstantiateObject(Vector3 position)
    {
 	   if (poolStack.Count > 0)
 	   {
 		   currentObject = poolStack.Pop();
 		   currentObject.transform.position = position;
-		   currentObject.SetActive(true);
-		   
+		   currentObject.SetActive(true);	   
 	   }
 			   else
 			   {
