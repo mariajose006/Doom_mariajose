@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-   
    [SerializeField]
    private Transform gunPosition;
    [SerializeField]
@@ -15,11 +14,16 @@ public class Player : MonoBehaviour
    private UnityEvent onGunGrabbed;
    [SerializeField]
    private UnityEvent onGunDropped;
+   private Health health;
+   private Rigidbody rb;
+   public float CurrentHealth => health.CurrentHealth;
    private Gun currentGun;
    private void Start()
    {
       onGunDropped?.Invoke();
-      GetComponent<Health>().InitializeHealth();
+      health = GetComponent<Health>();
+      health.InitializeHealth();
+      rb = GetComponent<Rigidbody>();
    }
  private void OnTriggerEnter(Collider other) 
  {
@@ -42,7 +46,6 @@ private void Update()
          }
       }
    }
-
    public void DropGun()
    {
       if (currentGun == null) return;
@@ -50,10 +53,18 @@ private void Update()
       currentGun = null;
       onGunDropped?.Invoke();
    }
-
 public void PushBack(Transform enemy, float force)
    {
       Vector3 pushDirection = (transform.position - enemy.position).normalized;
-      GetComponent<Rigidbody>().AddForce(pushDirection * force, ForceMode.Impulse);
+      rb.AddForce(pushDirection * force, ForceMode.Impulse);
+   }
+   public void Die()
+   {
+      DropGun();
+      GetComponent<FirstPersonMovement>().enabled = false;
+      GetComponentInChildren<FirstPersonLook>().enabled = false;
+      rb.isKinematic = true;
+      Cursor.visible = true;
+      Cursor.lockState = CursorLockMode.None;
    }
 }
