@@ -308,6 +308,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8900713629513764247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +326,8 @@ MonoBehaviour:
   animator: {fileID: 5400234463388717859}
   damage: 30
   speed: 3
-  yPosition: 2.299995
-  pushForce: 200
+  yPosition: 1.339996
+  pushForce: 150
 --- !u!95 &5400234463388717859
 Animator:
   serializedVersion: 7

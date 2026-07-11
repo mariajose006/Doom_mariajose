@@ -570,12 +570,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTank
   animator: {fileID: 6448492492509328996}
-  damage: 20
+  damage: 30
   range: 3
-  fireRate: 6
+  fireRate: 8
   shootPivot: {fileID: 8468607649799637806}
   bulletPrefab: {fileID: 4313337945671284830, guid: d8e0c1df75b52a441af147709285298f, type: 3}
-  speed: 3
+  speed: 4
 --- !u!65 &6357862216600630376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -595,8 +595,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8168564, y: 3.412941, z: 1.3785095}
-  m_Center: {x: -0.031650543, y: 1.704731, z: -0.18925476}
+  m_Size: {x: 1.8168564, y: 3.0990982, z: 2.0940552}
+  m_Center: {x: -0.031650543, y: 1.8616524, z: -0.05831909}
 --- !u!54 &3887836851383714395
 Rigidbody:
   m_ObjectHideFlags: 0

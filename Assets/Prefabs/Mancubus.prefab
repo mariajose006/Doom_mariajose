@@ -554,6 +554,9 @@ MonoBehaviour:
   onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6274861306709947010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +572,7 @@ MonoBehaviour:
   animator: {fileID: 8552172879791307695}
   damage: 20
   range: 6
-  fireRate: 4
+  fireRate: 6
   shootPivot: {fileID: 8468607649799637806}
   bulletPrefab: {fileID: 4313337945671284830, guid: 2dd417279032205489f91bf1180bcc52, type: 3}
   speed: 1
