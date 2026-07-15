@@ -17,13 +17,18 @@ public class Player : MonoBehaviour
    private Health health;
    private Rigidbody rb;
    public float CurrentHealth => health.CurrentHealth;
+   private FirstPersonMovement firstPersonMovement;
    private Gun currentGun;
+   private void Awake()
+   {
+      firstPersonMovement = GetComponent<FirstPersonMovement>();
+      rb = GetComponent<Rigidbody>();
+      health = GetComponent<Health>();
+   }
    private void Start()
    {
       onGunDropped?.Invoke();
-      health = GetComponent<Health>();
       health.InitializeHealth();
-      rb = GetComponent<Rigidbody>();
    }
  private void OnTriggerEnter(Collider other) 
  {
