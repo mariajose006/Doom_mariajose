@@ -10,19 +10,19 @@ public class LaserBeam : MonoBehaviour
        private Transform laserMesh;
         [SerializeField]
         private float radius = 0.1f;
+        [SerializeField]
+        private Vector3 targetOffset = new Vector3(0f, 0.5f, 0f);
         private bool followTarget = true;
         private bool isActive = false;
         private void Awake()
         {
             ActivateLaser(false);
         }
-
         private void LateUpdate()
         {
             if(!isActive || !followTarget) return;
             UpdateLaser();
         }
-
         public void ActivateLaser(bool active)
         {
             isActive = active;
@@ -35,7 +35,7 @@ public class LaserBeam : MonoBehaviour
         public void UpdateLaser()
         {
             if(!startPoint || !target) return;
-            Vector3 direction = target.position - startPoint.position;
+            Vector3 direction = target.position + targetOffset - startPoint.position;
             float distance = direction.magnitude;
             if(distance <= Mathf.Epsilon)
             {
