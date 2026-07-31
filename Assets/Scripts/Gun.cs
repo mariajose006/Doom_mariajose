@@ -2,40 +2,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
+
 public class Gun : MonoBehaviour
 {
     [SerializeField]
-
     private Animator animator;
         [SerializeField]
-
         private Rotate rotateScript;
         [SerializeField]
-
         private GunData gunData;
         [SerializeField]
-
         private Transform bulletPivot;
         [SerializeField]
-
         private GameObject bulletPrefab;
-
+        [SerializeField]
+        private GameObject fireParticlesPrefab;
         private Text ammoText;
-
         private float nextFireTime;
-
         private int totalBullets;
-
         private int cartridgeBullets;
-
         private UnityEvent onGunEmpty = new UnityEvent();
-
         public UnityEvent OnGunEmpty
     {
         set => onGunEmpty = value;
         get => onGunEmpty;
     }
-
         public void GrabGun(Transform gunPosition, Text bulletsText)
     {
         ammoText = bulletsText;
@@ -49,7 +40,6 @@ public class Gun : MonoBehaviour
         gameObject.GetComponent<Collider>().enabled = false;
         ChargeGun(false);
     }
-
     public void ChargeGun(bool playAnimation = true)
     {
         if (totalBullets <= 0 || cartridgeBullets == gunData.cartridgeSize) return; 
@@ -76,12 +66,10 @@ public class Gun : MonoBehaviour
         totalBullets -= cartridgeBullets;
         UpdateAmmoText();
     }
-
     private void UpdateAmmoText()
     {
         ammoText.text = $"{cartridgeBullets}/{totalBullets}";
     }
-
     private void DamageEnemy(GameObject enemy)
     {
         if (enemy.CompareTag("Enemy"))
@@ -90,9 +78,9 @@ public class Gun : MonoBehaviour
         }
       
     }
-
     public void Shoot()
     {
+        PoolManager.Instance.GetObject(fireParticlesPrefab, bulletPivot.position);
         float rayDistance = 1000f;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         Vector3 targetPoint;
@@ -115,7 +103,6 @@ public class Gun : MonoBehaviour
         SoundManager.instance.Play(gunData.shootSoundName);
         animator.Play("Shoot", 0, 0f);
          }
-
          public void HandleFire(bool pressed, bool held)
     {
         if(gunData.gunType == GunType.Automatic)
@@ -132,9 +119,8 @@ public class Gun : MonoBehaviour
                 TryShoot();
             }
         }
-        
+ 
     }
-
     private void TryShoot()
     {
         if (totalBullets <= 0 && cartridgeBullets <= 0)
