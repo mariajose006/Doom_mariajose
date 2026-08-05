@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
+
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
     private UnityEvent OnPKeyPressed;
+    [SerializeField]
+    private UnityEvent onScrollUp;
+    [SerializeField]
+    private UnityEvent OnScrollDown;
    public bool LeftButtonPressed {get; private set; }
-
    public bool LeftButtonHeld { get; private set; }
-
    public bool RightButtonPressed { get; private set; }
-
    private void Update()
     {
         LeftButtonPressed = Input.GetMouseButtonDown(0);
@@ -19,7 +21,14 @@ public class InputManager : MonoBehaviour
         {
             OnPKeyPressed.Invoke();
         }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f)
+        {
+            onScrollUp?.Invoke();
+        }
+        else if (scroll < 0f)
+        {
+            OnScrollDown?.Invoke();
+        }
     }
-
-   
 }

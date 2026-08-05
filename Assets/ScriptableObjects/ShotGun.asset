@@ -21,3 +21,4 @@ MonoBehaviour:
   shootSoundName: Disparo_Escopeta
   reloadSoundName: Recargar
   dropSoundName: Destruir
+  sprite: {fileID: 21300000, guid: e8e0f28c0ec8ecc4a9aeb533ab770013, type: 3}
