@@ -18,16 +18,35 @@ public class Gun : MonoBehaviour
         private GameObject bulletPrefab;
         [SerializeField]
         private GameObject fireParticlesPrefab;
+        [SerializeField]
+        private LayerMask aimLayerMask;
         private Text ammoText;
         private float nextFireTime;
         private int totalBullets;
         private int cartridgeBullets;
         private UnityEvent onGunEmpty = new UnityEvent();
+        private Camera gunCamera;
+        private UnityEvent onGunShoot => new UnityEvent();
+        public UnityEvent OnGunShoot => onGunShoot;
         public bool IsGunFull => totalBullets == gunData.totalBullets;
+        private float rayDistance = 1000f;
         public UnityEvent OnGunEmpty
     {
         set => onGunEmpty = value;
         get => onGunEmpty;
+    }
+    private void Awake()
+    {
+        gunCamera = Camera.main;
+    }
+    private bool TryGetHit(out RaycastHit hit)
+    {
+        Ray ray = gunCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        return Physics.Raycast(ray, out hit, rayDistance);
+    }
+    public bool IsAimingEnemy()
+    {
+        return TryGetHit(out RaycastHit hit) && hit.collider.CompareTag("Enemy");
     }
     public void ChargeTotalBullets()
     {
@@ -90,28 +109,28 @@ public class Gun : MonoBehaviour
     }
     public void Shoot()
     {
+        OnGunShoot?.Invoke();
         PoolManager.Instance.GetObject(fireParticlesPrefab, bulletPivot.position);
-        float rayDistance = 1000f;
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         Vector3 targetPoint;
-        if(Physics.Raycast(ray, out RaycastHit hit, rayDistance))
+        if(TryGetHit(out RaycastHit hit))
         {
             targetPoint = hit.point;
             DamageEnemy(hit.collider.gameObject);
         }
         else
         {
+            Ray ray = gunCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             targetPoint = ray.GetPoint(rayDistance);
         }
-        Vector3 direction = (targetPoint - transform.position).normalized;
-        bulletPivot.forward = direction;
-        GameObject bullet = PoolManager.Instance.GetObject(bulletPrefab, bulletPivot.position);
-        bullet.SetActive(false);
-        bullet.transform.position= bulletPivot.position;
-        bullet.transform.LookAt(targetPoint);
-        bullet.SetActive(true);
-        SoundManager.instance.Play(gunData.shootSoundName);
-        animator.Play("Shoot", 0, 0f);
+            Vector3 direction = (targetPoint - transform.position).normalized;
+            bulletPivot.forward = direction;
+            GameObject bullet = PoolManager.Instance.GetObject(bulletPrefab, bulletPivot.position);
+            bullet.SetActive(false);
+            bullet.transform.position = bulletPivot.position;
+            bullet.transform.LookAt(targetPoint);
+            bullet.SetActive(true);
+            SoundManager.instance.Play(gunData.shootSoundName);
+            animator.Play("Shoot", 0, 0f);
          }
          public void HandleFire(bool pressed, bool held)
     {

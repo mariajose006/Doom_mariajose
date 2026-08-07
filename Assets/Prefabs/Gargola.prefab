@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 3074398177459029812}
   - component: {fileID: 1149624213040895975}
   - component: {fileID: 146420824991327204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gargola
   m_TagString: Enemy
   m_Icon: {fileID: 0}
